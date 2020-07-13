@@ -1,19 +1,17 @@
 version: 2.1
-
-orbs:
-  python: circleci/python@0.2.1
-
 jobs:
   build-and-test:
-    executor: python/default
+    working_directory: ~/project
+    docker:
+      - image: circleci/python:3.7.6
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
       - run:
-          command: ./manage.py test
-          name: Test
+          name: Runnning tests
+          command: |
+            pip install --upgrade pip
+            pip install -r packages/requirements.txt
+            PYTHONPATH=./packages/titanic pytest -s packages/titanic/tests/
 
 workflows:
   main:
