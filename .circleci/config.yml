@@ -9,8 +9,6 @@ jobs:
       - run:
           name: Runnning tests
           command: |
-            virtualenv venv
-            . venv/bin/activate
             pip install --upgrade pip
             pip install -r packages/requirements.txt
             export PYTHONPATH=./packages/titanic
