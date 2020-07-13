@@ -19,7 +19,7 @@ def make_prediction(*, input_data: pd.DataFrame) -> dict:
         Predictions for each input row.
     """
 
-    predictions = _pipe_titanic.predict(input_data)
+    predictions = _pipe_titanic.predict(input_data[config.FEATURES])
 
     results =  {'predictions': tuple(map(int, predictions))}
 

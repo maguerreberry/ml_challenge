@@ -1,27 +1,20 @@
-from flask import Flask, jsonify, request
-import joblib
-import pandas as pd
-from titanic.predict import make_prediction
-from titanic.config import config
+from flask import Flask
 
-app = Flask(__name__)
+from api.config import get_logger
 
-@app.route('/', methods=['GET'])
-def default():
-    return jsonify(rsp='Titanic API')
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    json_data = request.get_json()
-    
-    X = pd.DataFrame(json_data)
+_logger = get_logger(logger_name=__name__)
 
-    prediction = make_prediction(input_data=X)
 
-    # Converting to int from int64
-    # return jsonify({"prediction": tuple(map(int, prediction))})
-    return jsonify(prediction)
+def create_app(*, config_object) -> Flask:
+    """Create a flask app instance."""
 
-if __name__ == '__main__':
-    clf = joblib.load(config.PIPELINE_SAVE_FILE)
-    app.run(port=5000)
+    flask_app = Flask('titanic_api')
+    flask_app.config.from_object(config_object)
+
+    # import blueprints
+    from api.controller import prediction_app
+    flask_app.register_blueprint(prediction_app)
+    _logger.debug('Application instance created')
+
+    return flask_app
