@@ -3,3 +3,4 @@ pandas==1.0.5
 numpy==1.18.5
 scikit-learn==0.23.1
 joblib==0.16.0
+pytest==5.4.3
