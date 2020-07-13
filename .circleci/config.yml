@@ -9,9 +9,13 @@ jobs:
       - run:
           name: Runnning tests
           command: |
+            virtualenv venv
+            . venv/bin/activate
             pip install --upgrade pip
             pip install -r packages/requirements.txt
-            PYTHONPATH=./packages/titanic pytest -s packages/titanic/tests/
+            export PYTHONPATH=./packages/titanic
+            python packages/titanic/titanic/train_pipeline.py
+            pytest -s packages/titanic/tests/
 
 workflows:
   main:
