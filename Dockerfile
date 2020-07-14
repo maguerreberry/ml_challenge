@@ -6,6 +6,6 @@ RUN pip install -r /packages/requirements.txt
 
 EXPOSE 5000
 
-WORKDIR /packages/
-ENV PYTHONPATH /packages/titanic/
-CMD ["python", "api/api/app.py"]
+ENV PYTHONPATH /packages/api/:/packages/titanic/
+WORKDIR /packages/api/
+CMD ["gunicorn", "-b", ":5000", "run:application"]

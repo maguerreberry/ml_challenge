@@ -35,4 +35,4 @@ titanic_pipe = Pipeline(
         ('preprocessor', preprocessor),
         ('classifier', RandomForestClassifier())
     ]
- )
+)
