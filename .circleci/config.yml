@@ -16,6 +16,8 @@ jobs:
             pytest -s packages/titanic/tests/
   build-docker-image:
     working_directory: ~/project
+    docker:
+      - image: circleci/python:3.7.6
     steps:
       - checkout
       - setup_remote_docker:
@@ -26,6 +28,8 @@ jobs:
             docker build -t mattague/titanic .
   push-docker-image:
     working_directory: ~/project
+    docker:
+      - image: circleci/python:3.7.6
     steps:
       - checkout
       - setup_remote_docker:
