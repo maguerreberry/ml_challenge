@@ -3,6 +3,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 
 import titanic.preprocessors as pp
 from titanic.config import config
@@ -34,5 +35,12 @@ titanic_pipe = Pipeline(
     steps = [
         ('preprocessor', preprocessor),
         ('classifier', RandomForestClassifier())
+    ]
+)
+
+titanic_pipe_b = Pipeline(
+    steps = [
+        ('preprocessor', preprocessor),
+        ('classifier', LogisticRegression())
     ]
 )

@@ -1,11 +1,12 @@
-import pandas as pd
 import joblib
 import logging
+import pandas as pd
+import numpy as np
 from titanic.config import config
-
 
 _logger = logging.getLogger(__name__)
 _pipe_titanic = joblib.load(filename=config.PIPELINE_SAVE_FILE)
+_pipe_titanic_b = joblib.load(filename=config.PIPELINE_SAVE_FILE_B)
 
 
 def make_prediction(*, input_data: pd.DataFrame) -> dict:
@@ -19,11 +20,27 @@ def make_prediction(*, input_data: pd.DataFrame) -> dict:
         Predictions for each input row.
     """
 
+    model = {
+        0: {
+            'name': 'RandomForest',
+            'pipe': _pipe_titanic,
+        },
+        1: {
+            'name': 'Logistic',
+            'pipe': _pipe_titanic_b,
+        },
+    }
+
+    r = np.random.randint(low=0, high=2, size=1)[0]
+
     input_data = input_data.reindex(columns=config.FEATURES)
 
-    predictions = _pipe_titanic.predict(input_data[config.FEATURES])
+    predictions = model[r]['pipe'].predict(input_data[config.FEATURES])
 
-    results =  {'predictions': tuple(map(int, predictions))}
+    results =  {
+        'predictions': tuple(map(int, predictions)),
+        'model': model[r]['name'],
+    }
 
     _logger.info(
         f"\nInputs:\n{input_data}"

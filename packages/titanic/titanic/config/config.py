@@ -8,6 +8,7 @@ DATASET_DIR = PACKAGE_ROOT / "datasets"
 TRAINING_DATA_FILE = DATASET_DIR / 'train.csv'
 TESTING_DATA_FILE = DATASET_DIR / 'test.csv'
 PIPELINE_SAVE_FILE = TRAINED_MODEL_DIR / 'titanic_model.pkl'
+PIPELINE_SAVE_FILE_B = TRAINED_MODEL_DIR / 'titanic_model_b.pkl'
 
 TARGET = 'Survived'
 
