@@ -15,7 +15,7 @@ jobs:
             python packages/titanic/titanic/train_pipeline.py
             pytest -s packages/titanic/tests/
 
-  build-docker-image:
+  build-and-push-docker-image:
     machine: true
     working_directory: ~/project
     steps:
@@ -23,26 +23,18 @@ jobs:
       - run:
           name: Building Docker Image
           command: |
-            docker build -t mattague/titanic .
-
-  push-docker-image:
-    machine: true
-    working_directory: ~/project
-    steps:
-      - checkout
+            docker build -t $DOCKERHUB_USERNAME/titanic .
       - run:
           name: Pushing Docker Image
           command: |
             echo "$DOCKERHUB_PASS" | docker login --username=$DOCKERHUB_USERNAME --password-stdin
-            docker push mattague/titanic
+            docker push $DOCKERHUB_USERNAME/titanic
 
 
 workflows:
   main:
     jobs:
       - build-and-test
-      - build-docker-image
-      - push-docker-image:
+      - build-and-push-docker-image:
           requires:
             - build-and-test
-            - build-docker-image
