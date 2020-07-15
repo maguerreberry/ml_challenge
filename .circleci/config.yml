@@ -15,25 +15,23 @@ jobs:
             python packages/titanic/titanic/train_pipeline.py
             pytest -s packages/titanic/tests/
   build-docker-image:
+    # docker:
+    #   - image: circleci/python:3.7.6
+    machine: true
     working_directory: ~/project
-    docker:
-      - image: circleci/python:3.7.6
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
       - run:
           name: Building Docker Image
           command: |
             docker build -t mattague/titanic .
   push-docker-image:
+    # docker:
+    #   - image: circleci/python:3.7.6
+    machine: true
     working_directory: ~/project
-    docker:
-      - image: circleci/python:3.7.6
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
       - run:
           name: Pushing Docker Image
           command: |
