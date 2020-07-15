@@ -47,6 +47,6 @@ workflows:
       - build-and-test
       - build-docker-image
       - push-docker-image:
-        requires:
-          - build-and-test
-          - build-docker-image
+          requires:
+            - build-and-test
+            - build-docker-image
