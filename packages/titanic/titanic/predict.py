@@ -19,6 +19,8 @@ def make_prediction(*, input_data: pd.DataFrame) -> dict:
         Predictions for each input row.
     """
 
+    input_data = input_data.reindex(columns=config.FEATURES)
+
     predictions = _pipe_titanic.predict(input_data[config.FEATURES])
 
     results =  {'predictions': tuple(map(int, predictions))}
