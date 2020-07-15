@@ -14,9 +14,8 @@ jobs:
             export PYTHONPATH=./packages/titanic
             python packages/titanic/titanic/train_pipeline.py
             pytest -s packages/titanic/tests/
+
   build-docker-image:
-    # docker:
-    #   - image: circleci/python:3.7.6
     machine: true
     working_directory: ~/project
     steps:
@@ -25,9 +24,8 @@ jobs:
           name: Building Docker Image
           command: |
             docker build -t mattague/titanic .
+
   push-docker-image:
-    # docker:
-    #   - image: circleci/python:3.7.6
     machine: true
     working_directory: ~/project
     steps:
@@ -35,7 +33,7 @@ jobs:
       - run:
           name: Pushing Docker Image
           command: |
-            docker login --username=$DOCKERHUB_USERNAME --password=$DOCKERHUB_PASS
+            echo "$DOCKERHUB_PASS" | docker login --username=$DOCKERHUB_USERNAME --password-stdin
             docker push mattague/titanic
 
 
