@@ -23,12 +23,12 @@ jobs:
       - run:
           name: Building Docker Image
           command: |
-            docker build -t $DOCKERHUB_USERNAME/titanic .
+            docker build -t $DOCKERHUB_USERNAME/titanic:$(cat packages/api/api/VERSION) .
       - run:
           name: Pushing Docker Image
           command: |
             echo "$DOCKERHUB_PASS" | docker login --username=$DOCKERHUB_USERNAME --password-stdin
-            docker push $DOCKERHUB_USERNAME/titanic
+            docker push $DOCKERHUB_USERNAME/titanic:$(cat packages/api/api/VERSION)
 
 
 workflows:

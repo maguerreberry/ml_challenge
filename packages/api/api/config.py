@@ -1,7 +1,9 @@
 import logging
-import sys
+import pathlib
 import os
+import sys
 
+PACKAGE_ROOT = pathlib.Path(__file__).resolve().parent
 
 # Multiple calls to logging.getLogger('someLogger') return a
 # reference to the same logger object.  This is true not only
