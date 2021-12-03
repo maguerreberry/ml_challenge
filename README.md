@@ -1,4 +1,4 @@
-# Rappi - Machine Learning Challenge
+# Machine Learning Challenge
 
 ### Dependencies
 ```
