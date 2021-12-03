@@ -1,5 +1,20 @@
 # Machine Learning Challenge
 
+### The Challenge
+Based on the well known Kagle problem "Titanic: Machine Learning from Disaster", develop two process:
+- Train a classifier
+- Create an API
+
+#### Train a classifier
+Create a pipeline for training a binary classifier. The input for this training can be found in the
+link from above. The output should be a binary classifier model and exported somewhere so it
+can be used from the API.
+
+#### Create an API
+After exporting the classifier as a binary, it is required to use it for real time predictions. With the
+mentioned objective in mind, you would need to create an API that receives a list of passengers
+and predicts for each of them if they’re likely to survive or not.
+
 ### Dependencies
 ```
 pip install -r packages/requirements.txt
